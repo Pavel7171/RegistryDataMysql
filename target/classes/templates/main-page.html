@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Реестр баз</title>
+</head>
+<body>
+
+<div th:switch="${bases}">
+    <h2 th:case="null">База не найдена</h2>
+    <div th:case="*">
+        <h2>Реестр баз и владельцев</h2>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Имя базы</th>
+                <th>Владелец базы</th>
+                <th>Дата создания</th>
+                <th>Тип базы</th>
+                <th>Размер</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="base : ${bases}">
+                <td th:text="${base.id}"></td>
+                <td th:text="${base.baseName}"></td>
+                <td th:text="${base.baseOwner}"></td>
+                <td th:text="${base.createdDate}"></td>
+                <td th:text="${base.type}"></td>
+                <td th:text="${base.size}"></td>
+                <td><a th:href="@{update-record-database/{id}(id=${base.id})}">Редактировать запись</a>| <a
+                        th:href="@{delete-record-database/{id}(id=${base.id})}">Удалить запись</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <br>
+        <form action="#" th:action="@{/search-by-owner/}" th:object="${searchOwner}" method="post">
+            <label for="searchOwner">Поиск по владельцу базы</label>
+            <input type="search" th:text="${searchOwner}" id="searchOwner" name="searchOwner" placeholder="Владелец" onchange="btnDisableAction()">
+            <input type="submit" value="Поиск" id="button" onchange="btnDisableAction()">
+        </form>
+    </div>
+    <br>
+    <br>
+    <p><a href="/create-record-database">Добавить новую запись</a></p>
+</div>
+
+<script>
+    const form1 = document.querySelector('form');
+    form1.addEventListener('submit', function (event) {
+        event.preventDefault(); // предотвращаем отправку формы по умолчанию
+        const keyword = form1.querySelector('input[name="searchOwner"]').value;
+        console.log(keyword)
+        window.location.href = '/search-by-owner/' + encodeURIComponent(keyword);
+    });
+
+    function btnDisableAction() {
+        const value = document.getElementById('searchOwner').value;
+        const button = document.getElementById('button');
+        button.disabled = true;
+        if (value.length != 0) {
+            button.disabled = false;
+        }
+    }
+    btnDisableAction();
+</script>
+</body>
+</html>

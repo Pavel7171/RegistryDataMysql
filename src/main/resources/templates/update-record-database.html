@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать запись</title>
+</head>
+<body>
+<form action="#" th:action="@{/update-record-database}" th:object="${base}" method="post">
+    <label for="id">ID</label>
+    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+    <br/>
+    <br/>
+    <label for="baseName">Имя базы</label>
+    <input type="text" th:field="*{baseName}" id="baseName" placeholder="Имя базы">
+    <br/>
+    <br/>
+    <label for="baseOwner">Владелец базы</label>
+    <input type="text" th:field="*{baseOwner}" id="baseOwner" placeholder="Владелец базы">
+    <br/>
+    <br/>
+    <label for="createdDate">Дата создания</label>
+    <input type="text" th:field="*{createdDate}" id="createdDate" placeholder="Created date">
+    <br/>
+    <br/>
+    <label for="type">Тип базы</label>
+    <input type="text" th:field="*{type}" id="type" placeholder="Тип базы">
+    <br/>
+    <br/>
+    <label for="size">Размер</label>
+    <input type="number" th:field="*{size}" id="size" placeholder="Размер">
+    <br/>
+    <br/>
+    <input type="submit" value="Обновить запись"></form>
+
+</body>
+</html>
